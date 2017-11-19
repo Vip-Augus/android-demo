@@ -21,10 +21,15 @@ import android.widget.Toast;
 
 import com.google.common.collect.Lists;
 
+import org.litepal.crud.DataSupport;
+import org.litepal.tablemanager.Connector;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 import cn.sevenyuan.demo.adapter.TestAdapter;
 import cn.sevenyuan.demo.databinding.ActivitySecondBinding;
+import cn.sevenyuan.demo.model.Book;
 import cn.sevenyuan.demo.model.TestModel;
 
 public class SecondActivity extends AppCompatActivity {
@@ -77,7 +82,14 @@ public class SecondActivity extends AppCompatActivity {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Connector.getDatabase();
+                Book book = new Book();
+                book.setAuthor("Tom");
+                book.setPages(580);
+                book.setName("Unknow");
+                book.setPrice(BigDecimal.valueOf(19.99));
+                book.save();
+                List<Book> books = DataSupport.findAll(Book.class);
             }
         });
 
