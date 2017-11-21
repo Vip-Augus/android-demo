@@ -1,5 +1,6 @@
 package cn.sevenyuan.demo;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
 
     private ChatAdapter mChatAdapter;
+    private List<SimpleMessage> msgList;
 
 
     @Override
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private List<SimpleMessage> getData() {
-        List<SimpleMessage> msgList = Lists.newArrayList();
+         msgList = Lists.newArrayList();
         for (int i = 0; i < 30; i++) {
             SimpleMessage msg = new SimpleMessage();
             msg.setLeastMsg("现在是第" + i);
@@ -66,6 +68,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initListener() {
+
+        mChatAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+//                Toast.makeText(MainActivity.this, "onItemClick" + position, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("userName", msgList.get(position).getUserName());
+                intent.putExtra("user", bundle);
+                startActivity(intent);
+            }
+        });
+
+
         mEasyRefreshLayout.addEasyEvent(new EasyRefreshLayout.EasyEvent() {
             @Override
             public void onLoadMore() {
@@ -105,12 +121,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mChatAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(MainActivity.this, "onItemClick" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
 }
