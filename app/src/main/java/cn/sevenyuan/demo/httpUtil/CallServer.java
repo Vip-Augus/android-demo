@@ -30,8 +30,8 @@ public class CallServer {
         requestQueue = NoHttp.newRequestQueue(5);
     }
 
-    public <T> void request(int what, Request<T> request, SimpleResponseListener<T> listener) {
-        requestQueue.add(what, request, listener);
+    public <T> void request(int what, AbstractRequest<T> request, HttpListener<T> listener) {
+        requestQueue.add(what, request, new DefaultResponseListener<T>(listener, request));
     }
 
     //完全退出App时,调用这个方法释放CPU

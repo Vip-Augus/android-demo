@@ -48,8 +48,10 @@ public abstract class AbstractRequest<T> extends RestRequest<Result<T>> {
                         T result = getResult(data);
                         return new Result<>(true, result, headers, null);
                     } else {
-                        String error = bodyObject.getString("message");
-                        return new Result<>(false, null, headers, error);
+//                        String error = bodyObject.getString("message");
+//                        return new Result<>(false, null, headers, error);
+                        T result = getResult(bodyString);
+                        return new Result<>(true, result, headers, null);
                     }
                 } catch (Exception e) {
                     //解析异常
@@ -61,5 +63,7 @@ public abstract class AbstractRequest<T> extends RestRequest<Result<T>> {
             String error = "服务器返回其它相应码未识别";
             return new Result<>(false, null, headers, error);
         }
+
+
     }
 }

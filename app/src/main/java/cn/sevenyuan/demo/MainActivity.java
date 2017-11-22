@@ -14,12 +14,19 @@ import android.widget.Toast;
 import com.ajguan.library.EasyRefreshLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.common.collect.Lists;
+import com.yanzhenjie.nohttp.NoHttp;
+import com.yanzhenjie.nohttp.RequestMethod;
 
 import java.util.List;
 
 import cn.sevenyuan.demo.adapter.ChatAdapter;
 import cn.sevenyuan.demo.adapter.MyDividerItemDecoration;
 import cn.sevenyuan.demo.databinding.ActivityMainBinding;
+import cn.sevenyuan.demo.httpUtil.CallServer;
+import cn.sevenyuan.demo.httpUtil.EntityRequest;
+import cn.sevenyuan.demo.httpUtil.HttpListener;
+import cn.sevenyuan.demo.httpUtil.Result;
+import cn.sevenyuan.demo.model.Book;
 import cn.sevenyuan.demo.model.SimpleMessage;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        NoHttp.initialize(this);
         initData();
         initView();
         initListener();
@@ -123,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
 
 }
 

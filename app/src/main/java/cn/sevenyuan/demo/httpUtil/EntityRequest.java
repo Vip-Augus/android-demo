@@ -17,6 +17,7 @@ public class EntityRequest<T> extends AbstractRequest<T> {
 
     public EntityRequest(String url, RequestMethod requestMethod, Class<T> clazz) {
         super(url, requestMethod, clazz);
+        this.clazz = clazz;
     }
 
     @Override
